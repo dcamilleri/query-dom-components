@@ -1,0 +1,36 @@
+{
+  "name": "query-dom-components",
+  "version": "0.0.0",
+  "description": "Query your dom components from html and store them into a JavaScript object",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcamilleri/query-dom-components.git"
+  },
+  "keywords": [
+    "dom",
+    "components",
+    "query"
+  ],
+  "author": "Dorian Camilleri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dcamilleri/query-dom-components/issues"
+  },
+  "homepage": "https://github.com/dcamilleri/query-dom-components#readme",
+  "devDependencies": {
+    "jsdom": "^5.6.1",
+    "mocha-jsdom": "^1.0.0"
+  },
+  "dependencies": {
+    "chai": "^3.2.0",
+    "eslint": "^0.24.1",
+    "jsdom": "^5.6.1"
+  }
+}
