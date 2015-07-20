@@ -1,7 +1,7 @@
 # query-dom-components
 Query your dom components from html and store them into a JavaScript object.
 
-When creating a JavaScript component (carousel, form, header...), it's a best practise to store all the DOM node associated to this component (submit button, navigation arrows...). And it's always really painful to query and declare all the variables associated to the subcomponents. `query-dom-components` allows you to store all these components into a single variable. You just need to prefix their classes with `js-` or the prefix you like and to call `queryDom` with the main container of the component as an option.
+When creating a JavaScript component (carousel, form, header...), it's a best practise to store all the DOM node associated to this component (submit button, navigation arrows...). And it's always really painful to query and declare all the variables associated to the subcomponents. `query-dom-components` allows you to store all these components into a single variable. You just need to prefix their classes with `js-` and to call `queryDom` with the container of the component as an option.
 
 ## Install
 
@@ -22,17 +22,17 @@ $ npm install --save query-dom-components
 
 ```js
 var queryDom = require('query-dom-components');
-var container = document.getElementById('conponent');
+var container = document.getElementById('component');
 
 /** Instead of doing this
-* DOM = {
-*		componentContainer: container.querySelector('js-component-container'),
-*		componentFoo: container.querySelector('js-component-foo'),
+* var DOM = {
+*		componentContainer: container.querySelector('.js-component-container'),
+*		componentFoo: container.querySelector('.js-component-foo'),
 *		...
 * };
 */
 
-// Just query All the js-[stuff] classes and store them inside the DOM object
+// Just query all the '.js-...'  classes and store them inside the DOM object
 var DOM = queryDom({el: container});
 ```
 
@@ -44,18 +44,18 @@ var DOM = queryDom({el: container});
 
 ##### el
 
-*Required*
+*Required*  
 Type: `DOM Node`  
 Default: `document.body`
 
-The root container to query the `js-` selectors
+The root container to query the `js-` selectors.
 
-##### profix
+##### prefix
 
 Type: `string`  
 Default: `js-`
 
-The prefix used to query your DOM elements. Default is `js-`
+The prefix used to query your DOM elements.
 
 ## License
 
