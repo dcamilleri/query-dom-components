@@ -1,7 +1,7 @@
 /* globals describe it */
 'use strict';
 
-var QueryDom = require('../index.js');
+var queryDom = require('../index.js');
 var camelCase = require('../lib/camelCase');
 var jsdom = require('jsdom');
 var expect = require('chai').expect;
@@ -29,7 +29,7 @@ describe('DOM Testing', function () {
         var doc = window.document;
         var container = doc.querySelector('.container');
         var divChild = doc.querySelector('.js-paragraph-long');
-        var dom = QueryDom({el: container});
+        var dom = queryDom({el: container});
 
         expect(dom.paragraphLong).to.equal(divChild);
 
@@ -50,7 +50,7 @@ describe('DOM Testing', function () {
         var foo = doc.querySelector('.js-foo');
         var bar = doc.querySelector('.js-bar');
 
-        var dom = QueryDom({el: container});
+        var dom = queryDom({el: container});
 
         expect(dom.fooBar).to.equal(fooBar);
         expect(dom.foo).to.equal(foo);
