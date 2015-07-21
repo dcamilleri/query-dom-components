@@ -44,7 +44,6 @@ var DOM = queryDom({el: container});
 
 ##### el
 
-*Required*  
 Type: `DOM Node`  
 Default: `document.body`
 
