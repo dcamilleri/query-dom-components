@@ -20,7 +20,6 @@ describe('CamelCase testing', function () {
 });
 
 describe('API Testing', function () {
-
   it('should return all the prefixed elements if the container is not specified', function (done) {
     jsdom.env(
       '<div class="js-container"><div class="js-foo"><span class="js-bar"></span></div><a href="#" class="js-foo-bar"></a></div>',
@@ -132,6 +131,29 @@ describe('API Testing', function () {
         expect(dom.fooBar).to.equal(fooBar);
         expect(dom.foo).to.equal(foo);
         expect(dom.bar).to.equal(bar);
+
+        done();
+      }
+    );
+  });
+
+  it('should return an good object when a jquery node is passed', function (done) {
+    jsdom.env(
+      '<div class="container"><div class="paragraph js-foo-bar">Hey you<p class="foofoo js-foo"></p></div><p class="js-bar barbar"></p>',
+      [],
+      function (errors, window) {
+
+        var $ = global.jQuery = require('jquery')(window);
+        var container = $('.container');
+
+        var fooBar = $('.js-foo-bar');
+        var foo = $('.js-foo');
+        var bar = $('.js-bar');
+        var dom = queryDom({el: container});
+
+        expect(dom.fooBar[0]).to.equal(fooBar[0]);
+        expect(dom.foo[0]).to.equal(foo[0]);
+        expect(dom.bar[0]).to.equal(bar[0]);
 
         done();
       }
