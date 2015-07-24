@@ -9,6 +9,7 @@ module.exports = function (options) {
   var opts = options || {};
   var container = opts.el || document.body;
   var prefix = opts.prefix || 'js-';
+  var hasJquery = typeof jQuery !== 'undefined';
 
   if(container.jquery) {
     container = container[0];
@@ -21,22 +22,21 @@ module.exports = function (options) {
     var splitKey = element.className.split(prefix)[1];
     var key = camelCase(splitKey.split(' ')[0]);
     if(key) {
-      if(_queryDom[key] && !_queryDom[key]._isAllSelected) {
-        if(typeof jQuery !== 'undefined') {
-          _queryDom[key] = jQuery('.' + element.className);
-        } else {
-          _queryDom[key] = container.querySelectorAll('.' + element.className);
-        }
+      var queryEl = _queryDom[key];
+      if(queryEl && !queryEl._isAllSelected) {
+        _queryDom[key] = hasJquery ?
+          jQuery('.' + element.className) :
+          container.querySelectorAll('.' + element.className);
         _queryDom[key]._isAllSelected = true;
       }
-      if(typeof jQuery !== 'undefined') {
+      if(hasJquery) {
         element = jQuery(element);
       }
-      if(!_queryDom[key]) {
+      if(!queryEl) {
         _queryDom[key] = element;
       }
     } else {
-      console.warn('queryDom warning: Watch out, one of your prefix is empty');
+      console.warn('queryDom warning: one of your prefix is empty');
     }
   }
 

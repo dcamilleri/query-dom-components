@@ -85,15 +85,15 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should return an valid object when an element is matching the query', function (done) {
     jsdom.env(
-      '<div class="container"><div class="paragraph js-paragraph-long lonlong">Hey you</div></div>',
+      '<div class="container"><div class="paragraph js-paragraph-long-like-hell lonlong">Hey you</div></div>',
       [],
       function (errors, window) {
         var doc = window.document;
         var container = doc.querySelector('.container');
-        var divChild = doc.querySelector('.js-paragraph-long');
+        var divChild = doc.querySelector('.js-paragraph-long-like-hell');
         var dom = queryDom({el: container});
 
-        expect(dom.paragraphLong).to.equal(divChild);
+        expect(dom.paragraphLongLikeHell).to.equal(divChild);
 
         done();
       }
