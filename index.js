@@ -20,13 +20,14 @@ module.exports = function (options) {
   for (var i = 0; i < targetElements.length; i++) {
     var element = targetElements[i];
     var splitKey = element.className.split(prefix)[1];
-    var key = camelCase(splitKey.split(' ')[0]);
+    var pureClass = splitKey.split(' ')[0];
+    var key = camelCase(pureClass);
     if(key) {
       var queryEl = _queryDom[key];
       if(queryEl && !queryEl._isAllSelected) {
         _queryDom[key] = hasJquery ?
-          jQuery('.' + element.className) :
-          container.querySelectorAll('.' + element.className);
+          jQuery('.' + prefix + pureClass) :
+          container.querySelectorAll('.' + prefix + pureClass);
         _queryDom[key]._isAllSelected = true;
       }
       if(hasJquery) {
