@@ -17,11 +17,12 @@
     var prefix = opts.prefix || 'js-';
     var hasJquery = typeof jQuery !== 'undefined';
 
-    if(container.jquery) {
-      container = container[0];
+    var targetElements;
+    if(hasJquery) {
+      targetElements = jQuery(container).find('*[class*="' + prefix + '"]');
+    } else {
+      targetElements = container.querySelectorAll('*[class*="' + prefix + '"]');
     }
-
-    var targetElements = container.querySelectorAll('*[class*="' + prefix + '"]');
 
     for (var i = 0; i < targetElements.length; i++) {
       var element = targetElements[i];

@@ -15,11 +15,12 @@ module.exports = function (options) {
     return console.warn('queryDom warning: the container specified in empty');
   }
 
-  if(container.jquery) {
-    container = container[0];
+  var targetElements;
+  if(hasJquery) {
+    targetElements = jQuery(container).find('*[class*="' + prefix + '"]');
+  } else {
+    targetElements = container.querySelectorAll('*[class*="' + prefix + '"]');
   }
-
-  var targetElements = container.querySelectorAll('*[class*="' + prefix + '"]');
 
   for (var i = 0; i < targetElements.length; i++) {
     var element = targetElements[i];
