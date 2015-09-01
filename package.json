@@ -1,6 +1,6 @@
 {
   "name": "query-dom-components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Query your dom components from html and store them into a JavaScript object",
   "main": "index.js",
   "directories": {

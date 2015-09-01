@@ -123,7 +123,7 @@ describe('API Testing with Vanilla JavaScript', function () {
     );
   });
 
-  it('should return an good object when multiple elements have the same prefixed class', function (done) {
+  it('should return a good object when multiple elements have the same prefixed class', function (done) {
     jsdom.env(
       '<div class="container"><div class="js-arrow"></div><div class="js-arrow"></div><div class="js-arrow"></div>',
       [],

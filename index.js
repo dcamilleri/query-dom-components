@@ -24,7 +24,12 @@ module.exports = function (options) {
 
   for (var i = 0; i < targetElements.length; i++) {
     var element = targetElements[i];
-    var splitKey = element.className.split(prefix)[1];
+    var className = element.className;
+    // Getting className on SVGs
+    if(typeof className !== 'string') {
+      className = element.getAttribute('class');
+    }
+    var splitKey = className.split(prefix)[1];
     var pureClass = splitKey.split(' ')[0];
     var key = camelCase(pureClass);
     if(key) {
