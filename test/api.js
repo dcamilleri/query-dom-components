@@ -134,8 +134,39 @@ describe('API Testing with Vanilla JavaScript', function () {
 
         var dom = queryDom({el: container});
 
+        // console.log("dom.arrow", dom.arrow);
+
         expect(dom.arrow.length).to.equal(arrows.length);
         expect(typeof dom.arrow).to.equal('object');
+
+        done();
+      }
+    );
+  });
+
+  it('should return a good object when innner elements multiple prefixed classes', function (done) {
+    jsdom.env(
+      '<div class="container">\
+        <div class="js-arrow js-arrow-left"></div>\
+        <div class="js-arrow js-arrow-right"></div>\
+      </div>',
+      [],
+      function (errors, window) {
+        var doc = window.document;
+        var container = doc.querySelector('.container');
+        var arrows = doc.querySelectorAll('.js-arrow');
+        var arrowLeft = doc.querySelectorAll('.js-arrow-left');
+        var arrowRight = doc.querySelectorAll('.js-arrow-right');
+
+        var dom = queryDom({el: container});
+
+        // console.log("dom.arrowLeft.length", dom.arrowLeft.length);
+        // console.log("dom.arrowLeft", dom.arrowLeft);
+
+        expect(dom.arrow.length).to.equal(arrows.length);
+        expect(typeof dom.arrow).to.equal('object');
+        expect(dom.arrowLeft.length).to.equal(arrowLeft.length);
+        // expect(dom.arrowRight.length).to.equal(arrowRight.length);
 
         done();
       }

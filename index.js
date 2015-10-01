@@ -3,6 +3,7 @@
 'use strict';
 
 var camelCase = require('./lib/camelCase');
+var extractSuffix = require('./lib/extractSuffix');
 
 module.exports = function (options) {
   var _queryDom = {};
@@ -29,22 +30,26 @@ module.exports = function (options) {
     if(typeof className !== 'string') {
       className = element.getAttribute('class');
     }
-    var splitKey = className.split(prefix)[1];
-    var pureClass = splitKey.split(' ')[0];
-    var key = camelCase(pureClass);
-    if(key) {
-      var queryEl = _queryDom[key];
-      if(queryEl && !queryEl._isAllSelected) {
-        _queryDom[key] = hasJquery ?
-          jQuery('.' + prefix + pureClass) :
-          container.querySelectorAll('.' + prefix + pureClass);
-        _queryDom[key]._isAllSelected = true;
-      }
-      if(hasJquery) {
-        element = jQuery(element);
-      }
-      if(!queryEl) {
-        _queryDom[key] = element;
+    var splitKeys = extractSuffix(className, prefix);
+    if(splitKeys) {
+      for (var j = 0; j < splitKeys.length; j++) {
+        var pureClass = splitKeys[j];
+        var key = camelCase(pureClass);
+        if(key) {
+          var queryEl = _queryDom[key];
+          if(queryEl && !queryEl._isAllSelected) {
+            _queryDom[key] = hasJquery ?
+              jQuery('.' + prefix + pureClass) :
+              container.querySelectorAll('.' + prefix + pureClass);
+            _queryDom[key]._isAllSelected = true;
+          }
+          if(hasJquery) {
+            element = jQuery(element);
+          }
+          if(!queryEl) {
+            _queryDom[key] = element;
+          }
+        }
       }
     } else {
       console.warn('queryDom warning: one of your prefix is empty');
