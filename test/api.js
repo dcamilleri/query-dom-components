@@ -8,7 +8,12 @@ var expect = require('chai').expect;
 describe('API Testing with Vanilla JavaScript', function () {
   it('should return all the prefixed elements if the container is not specified', function (done) {
     jsdom.env(
-      '<div class="js-container"><div class="js-foo"><span class="js-bar"></span></div><a href="#" class="js-foo-bar"></a></div>',
+      '<div class="js-container">\
+        <div class="js-foo">\
+          <span class="js-bar"></span>\
+        </div>\
+        <a href="#" class="js-foo-bar"></a>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -32,7 +37,9 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should return all the prefixed elements if the prefix is set', function (done) {
     jsdom.env(
-      '<div class="container"><span class="comp-foo-bar"></span></div>',
+      '<div class="container">\
+        <span class="comp-foo-bar"></span>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -49,7 +56,12 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should not take other prefixed elements if they don\'t match', function (done) {
     jsdom.env(
-      '<div class="container"><div class="comp-foo-bar"></div><div class="js-stuff-bar"><span class="js-bar-stuff"></span></div></div>',
+      '<div class="container">\
+        <div class="comp-foo-bar"></div>\
+        <div class="js-stuff-bar">\
+          <span class="js-bar-stuff"></span>\
+        </div>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -68,7 +80,9 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should ignore a dom element with nothing after its prefix.', function (done) {
     jsdom.env(
-      '<div class="container"><div class="js-"></div></div>',
+      '<div class="container">\
+        <div class="js-"></div>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -85,7 +99,9 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should return an valid object when an element is matching the query', function (done) {
     jsdom.env(
-      '<div class="container"><div class="paragraph js-paragraph-long-like-hell lonlong">Hey you</div></div>',
+      '<div class="container">\
+        <div class="paragraph js-paragraph-long-like-hell lonlong">Hey you</div>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -102,7 +118,13 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should return an good object when multiple elements are matching the query', function (done) {
     jsdom.env(
-      '<div class="container"><div class="paragraph js-foo-bar">Hey you<p class="foofoo js-foo"></p></div><p class="js-bar barbar"></p>',
+      '<div class="container">\
+        <div class="paragraph js-foo-bar">\
+          Hey you\
+          <p class="foofoo js-foo"></p>\
+        </div>\
+        <p class="js-bar barbar"></p>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -125,7 +147,11 @@ describe('API Testing with Vanilla JavaScript', function () {
 
   it('should return a good object when multiple elements have the same prefixed class', function (done) {
     jsdom.env(
-      '<div class="container"><div class="js-arrow"></div><div class="js-arrow"></div><div class="js-arrow"></div>',
+      '<div class="container">\
+        <div class="js-arrow"></div>\
+        <div class="js-arrow"></div>\
+        <div class="js-arrow"></div>\
+      </div>',
       [],
       function (errors, window) {
         var doc = window.document;
@@ -136,6 +162,36 @@ describe('API Testing with Vanilla JavaScript', function () {
 
         expect(dom.arrow.length).to.equal(arrows.length);
         expect(typeof dom.arrow).to.equal('object');
+
+        done();
+      }
+    );
+  });
+
+  it('should return a good object when inner elements multiple prefixed classes', function (done) {
+    jsdom.env(
+      '<div class="container">\
+        <div class="js-arrow js-arrow-left"></div>\
+        <div class="js-arrow js-arrow-right"></div>\
+      </div>',
+      [],
+      function (errors, window) {
+        var doc = window.document;
+        var container = doc.querySelector('.container');
+        var arrows = doc.querySelectorAll('.js-arrow');
+
+        var dom = queryDom({el: container});
+
+        expect(dom.arrow.length).to.equal(arrows.length);
+        expect(typeof dom.arrow).to.equal('object');
+
+        expect(dom.arrowLeft).to.not.equal(undefined);
+        expect(typeof dom.arrowLeft).to.equal('object');
+        expect(dom.arrowLeft.className).to.equal('js-arrow js-arrow-left');
+
+        expect(dom.arrowRight).to.not.equal(undefined);
+        expect(typeof dom.arrowRight).to.equal('object');
+        expect(dom.arrowRight.className).to.equal('js-arrow js-arrow-right');
 
         done();
       }
