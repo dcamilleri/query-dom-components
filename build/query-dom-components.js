@@ -10,6 +10,21 @@
     });
   }
 
+  function extractSuffix(string, prefix) {
+    var a = 1;
+    var res = [];
+    while(a) {
+      var subString = string.split(prefix)[a];
+      if(subString) {
+        res.push(subString.split(' ')[0]);
+        ++a;
+      } else {
+        a = 0;
+      }
+    }
+    return res;
+  }
+
   function queryDom(options) {
     var _queryDom = {};
     var opts = options || {};
@@ -31,22 +46,26 @@
       if(typeof className !== 'string') {
         className = element.getAttribute('class');
       }
-      var splitKey = className.split(prefix)[1];
-      var pureClass = splitKey.split(' ')[0];
-      var key = camelCase(pureClass);
-      if(key) {
-        var queryEl = _queryDom[key];
-        if(queryEl && !queryEl._isAllSelected) {
-          _queryDom[key] = hasJquery ?
-            jQuery('.' + prefix + pureClass) :
-            container.querySelectorAll('.' + prefix + pureClass);
-          _queryDom[key]._isAllSelected = true;
-        }
-        if(hasJquery) {
-          element = jQuery(element);
-        }
-        if(!queryEl) {
-          _queryDom[key] = element;
+      var splitKeys = extractSuffix(className, prefix);
+      if(splitKeys) {
+        for (var j = 0; j < splitKeys.length; j++) {
+          var pureClass = splitKeys[j];
+          var key = camelCase(pureClass);
+          if(key) {
+            var queryEl = _queryDom[key];
+            if(queryEl && !queryEl._isAllSelected) {
+              _queryDom[key] = hasJquery ?
+                jQuery('.' + prefix + pureClass) :
+                container.querySelectorAll('.' + prefix + pureClass);
+              _queryDom[key]._isAllSelected = true;
+            }
+            if(hasJquery) {
+              element = jQuery(element);
+            }
+            if(!queryEl) {
+              _queryDom[key] = element;
+            }
+          }
         }
       } else {
         console.warn('queryDom warning: one of your prefix is empty');
