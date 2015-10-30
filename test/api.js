@@ -1,7 +1,7 @@
 /* globals describe it */
 'use strict';
 
-var queryDom = require('../index.js');
+var queryDom = require('../query-dom-components.js');
 var jsdom = require('jsdom');
 var expect = require('chai').expect;
 
