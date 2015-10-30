@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "build": "cp query-dom-components.js build && uglifyjs query-dom-components.js -o build/query-dom-components.min.js"
   },
   "repository": {
     "type": "git",
