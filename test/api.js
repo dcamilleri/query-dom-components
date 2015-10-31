@@ -143,7 +143,7 @@ describe('API Testing with pure JavaScript', function () {
     var dom = queryDom({el: container});
 
     expect(dom.arrow.length).to.equal(arrows.length);
-    expect(typeof dom.arrow).to.equal('object');
+    expect(dom.arrow).to.be.an.instanceof(Object);
   });
 
   it('should return a good object when inner elements multiple prefixed classes', function () {
@@ -160,14 +160,14 @@ describe('API Testing with pure JavaScript', function () {
     var dom = queryDom({el: container});
 
     expect(dom.arrow.length).to.equal(arrows.length);
-    expect(typeof dom.arrow).to.equal('object');
+    expect(dom.arrow).to.be.an.instanceof(Object);
 
     expect(dom.arrowLeft).to.not.equal(undefined);
-    expect(typeof dom.arrowLeft).to.equal('object');
+    expect(dom.arrowLeft).to.be.an.instanceof(Object);
     expect(dom.arrowLeft.className).to.equal('js-arrow js-arrow-left');
 
     expect(dom.arrowRight).to.not.equal(undefined);
-    expect(typeof dom.arrowRight).to.equal('object');
+    expect(dom.arrowRight).to.be.an.instanceof(Object);
     expect(dom.arrowRight.className).to.equal('js-arrow js-arrow-right');
   });
 });

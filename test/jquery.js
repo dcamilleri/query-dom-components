@@ -154,7 +154,7 @@ describe('API Testing with jQuery', function () {
 
     expect(dom.arrow.length).to.equal(arrows.length);
     expect(dom.arrow.jquery).not.to.equal(undefined);
-    expect(typeof dom.arrow).to.equal('object');
+    expect(dom.arrow).to.be.an.instanceof(Object);
   });
 
   it('[jQuery] should return a good object when inner elements multiple prefixed classes', function () {
@@ -172,14 +172,14 @@ describe('API Testing with jQuery', function () {
     var dom = queryDom({el: container});
 
     expect(dom.arrow.length).to.equal(arrows.length);
-    expect(typeof dom.arrow).to.equal('object');
+    expect(dom.arrow).to.be.an.instanceof(Object);
 
     expect(dom.arrowLeft).to.not.equal(undefined);
-    expect(typeof dom.arrowLeft).to.equal('object');
+    expect(dom.arrowLeft).to.be.an.instanceof(Object);
     expect(dom.arrowLeft.attr('class')).to.equal('js-arrow js-arrow-left');
 
     expect(dom.arrowRight).to.not.equal(undefined);
-    expect(typeof dom.arrowRight).to.equal('object');
+    expect(dom.arrowRight).to.be.an.instanceof(Object);
     expect(dom.arrowRight.attr('class')).to.equal('js-arrow js-arrow-right');
   });
 });
