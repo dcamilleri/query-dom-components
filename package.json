@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start --single-run --browsers PhantomJS",
+    "test": "karma start --single-run --browsers PhantomJS2",
     "test:dev": "karma start",
     "build": "cp query-dom-components.js build && uglifyjs query-dom-components.js -o build/query-dom-components.min.js"
   },
@@ -35,6 +35,8 @@
     "karma-chrome-launcher": "^0.2.1",
     "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs2-launcher": "^0.3.2",
     "karma-safari-launcher": "^0.1.1",
     "mocha": "^2.2.5"
   }
