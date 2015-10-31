@@ -19,7 +19,7 @@ describe('extractSuffix testing', function () {
     var className = 'hey';
     var prefix = 'js-';
     var result = extractSuffix(className, prefix);
-    expect(typeof result).to.equal('object');
+    expect(result).to.be.an.instanceof(Object);
     expect(result.length).to.equal(0);
   });
 
