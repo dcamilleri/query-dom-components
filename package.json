@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start --single-run --browsers PhantomJS2",
+    "test": "karma start --single-run --browsers PhantomJS",
     "test:dev": "karma start",
     "build": "cp query-dom-components.js build && uglifyjs query-dom-components.js -o build/query-dom-components.min.js"
   },
