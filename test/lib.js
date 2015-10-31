@@ -1,9 +1,5 @@
-/* globals describe it */
+/* globals describe it expect camelCase extractSuffix */
 'use strict';
-
-var camelCase = require('../lib/camelCase');
-var extractSuffix = require('../lib/extractSuffix');
-var expect = require('chai').expect;
 
 describe('CamelCase testing', function () {
   it('should return a normal string where there is no dash in the string', function () {
