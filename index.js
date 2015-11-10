@@ -10,7 +10,8 @@ module.exports = function (options) {
   var opts = options || {};
   var container = opts.el || document.body;
   var prefix = opts.prefix || 'js-';
-  var hasJquery = typeof jQuery !== 'undefined';
+  var wantJquery = opts.usejQuery || false;
+  var hasJquery = wantJquery && typeof jQuery !== 'undefined';
 
   if(!container) {
     return console.warn('queryDom warning: the container specified in empty');
