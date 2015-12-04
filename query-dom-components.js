@@ -59,9 +59,15 @@
           if(key) {
             var queryEl = _queryDom[key];
             if(queryEl && !queryEl._isAllSelected) {
-              _queryDom[key] = hasJquery ?
-                jQuery('.' + prefix + pureClass) :
-                container.querySelectorAll('.' + prefix + pureClass);
+              if(hasJquery) {
+                if(wantJquery !== false) {
+                  _queryDom[key] = jQuery('.' + prefix + pureClass);
+                } else {
+                  _queryDom[key] = container[0].querySelectorAll('.' + prefix + pureClass);
+                }
+              } else {
+                _queryDom[key] = container.querySelectorAll('.' + prefix + pureClass);
+              }
               _queryDom[key]._isAllSelected = true;
             }
             if(hasJquery) {

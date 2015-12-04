@@ -187,13 +187,14 @@ describe('API Testing with jQuery', function () {
     var DOM =
       $('<div class="container">\
         <div class="js-foo"></div>\
+        <div class="js-foo"></div>\
         <div class="js-bar"></div>\
       </div>');
 
     $('body').append(DOM);
 
     var containerVanilla = $('.container');
-    var fooVanilla = document.querySelector('.js-foo');
+    var fooVanilla = document.querySelectorAll('.js-foo');
     var barVanilla = document.querySelector('.js-bar');
     var dom = queryDom({el: containerVanilla, returnJquery: false});
 
@@ -201,7 +202,7 @@ describe('API Testing with jQuery', function () {
     expect(dom.bar).to.not.equal(undefined);
     expect(jQuery).to.not.equal(undefined);
 
-    expect(dom.foo).to.equal(fooVanilla);
+    expect(dom.foo.length).to.equal(fooVanilla.length);
     expect(dom.foo).to.not.be.an.instanceof(jQuery);
 
     expect(dom.bar).to.equal(barVanilla);
