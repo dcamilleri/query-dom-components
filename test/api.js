@@ -170,4 +170,23 @@ describe('API Testing with pure JavaScript', function () {
     expect(dom.arrowRight).to.be.an.instanceof(Object);
     expect(dom.arrowRight.className).to.equal('js-arrow js-arrow-right');
   });
+
+  it('should return a good object even if returnjQuery is set to true', function () {
+    var DOM =
+      '<div class="container">\
+        <div class="js-foo"></div>\
+        <div class="js-bar"></div>\
+      </div>';
+    document.body.innerHTML = DOM;
+
+    var container = document.querySelector('.container');
+    var foo = document.querySelector('.js-foo');
+    var bar = document.querySelector('.js-bar');
+    var dom = queryDom({el: container, returnjQuery: true});
+
+    expect(dom.foo).to.not.equal(undefined);
+    expect(dom.bar).to.not.equal(undefined);
+    expect(dom.foo).to.equal(foo);
+    expect(dom.bar).to.equal(bar);
+  });
 });

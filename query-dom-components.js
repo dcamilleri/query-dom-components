@@ -30,6 +30,7 @@
     var opts = options || {};
     var container = opts.el || document.body;
     var prefix = opts.prefix || 'js-';
+    var wantJquery = opts.returnJquery;
     var hasJquery = typeof jQuery !== 'undefined';
 
     if(!container) {
@@ -64,7 +65,9 @@
               _queryDom[key]._isAllSelected = true;
             }
             if(hasJquery) {
-              element = jQuery(element);
+              if(wantJquery !== false) {
+                element = jQuery(element);
+              }
             }
             if(!queryEl) {
               _queryDom[key] = element;

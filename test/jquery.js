@@ -1,4 +1,4 @@
-/* globals describe it $ expect queryDom afterEach */
+/* globals describe it $ expect queryDom afterEach jQuery */
 'use strict';
 
 describe('API Testing with jQuery', function () {
@@ -181,5 +181,30 @@ describe('API Testing with jQuery', function () {
     expect(dom.arrowRight).to.not.equal(undefined);
     expect(dom.arrowRight).to.be.an.instanceof(Object);
     expect(dom.arrowRight.attr('class')).to.equal('js-arrow js-arrow-right');
+  });
+
+  it('[jQuery] should return a NodeList object if returnJquery is set to false and if jQuery is defined globally', function () {
+    var DOM =
+      $('<div class="container">\
+        <div class="js-foo"></div>\
+        <div class="js-bar"></div>\
+      </div>');
+
+    $('body').append(DOM);
+
+    var containerVanilla = $('.container');
+    var fooVanilla = document.querySelector('.js-foo');
+    var barVanilla = document.querySelector('.js-bar');
+    var dom = queryDom({el: containerVanilla, returnJquery: false});
+
+    expect(dom.foo).to.not.equal(undefined);
+    expect(dom.bar).to.not.equal(undefined);
+    expect(jQuery).to.not.equal(undefined);
+
+    expect(dom.foo).to.equal(fooVanilla);
+    expect(dom.foo).to.not.be.an.instanceof(jQuery);
+
+    expect(dom.bar).to.equal(barVanilla);
+    expect(dom.bar).to.not.be.an.instanceof(jQuery);
   });
 });
